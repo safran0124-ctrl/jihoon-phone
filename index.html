@@ -391,7 +391,7 @@ function renderNews(){
 }
 function renderMusic(){
  const dates=["140515","140520","140601","140614","140701","140718","140803","140820","140904","140919","141001","141010","141016"];
- screen.innerHTML=`<div class="section-label">음악　140515 — 141016</div><div id="player" style="padding:10px"></div>${dates.slice().reverse().map((d,i)=>`<div class="music-row"><button onclick="playMusic('${i===0?"song1.mp4":"song2.mp4"}')">▶</button><div class="track">${d}<small>노래</small></div></div>`).join("")}`;
+ screen.innerHTML=`<div class="section-label">음악　140515 — 141016</div><div id="player" style="padding:10px"></div>${dates.slice().reverse().map((d,i)=>`<div class="music-row"><button onclick="playMusic('jihoon-voice-1.mp3')">▶</button><div class="track">${d}<small>노래</small></div></div>`).join("")}`;
 }
 function playMusic(file){$("#player").innerHTML=`<video controls autoplay style="width:100%" src="${file}"></video>`}
 function tick(){const d=new Date();$("#clockNow").textContent=d.toLocaleTimeString("ko-KR",{hour:"2-digit",minute:"2-digit",hour12:true})}
