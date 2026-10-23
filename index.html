@@ -331,7 +331,9 @@ function respondTo(text){
  else if(/기다|언제 와|어디야/.test(t))reply="지금 갈게. 조금만 기다려 줘.";
  else if(/응|어|그래/.test(t))reply="고마워… 내 얘기 들어줘서.";
  else if(/보고 싶/.test(t))reply="나도 보고 싶어. 지금 네 옆에 가고 싶다.";
- else reply="읽었어. 네가 그렇게 느낀 줄 몰랐어. 조금만 더 얘기해 줄래?";
+ else if(/권순영|순영아/.test(t))reply="응 지훈아.";
+ else if(/꺼져/.test(t))reply="네가 마음이 풀린다면 그렇게 할게.";
+ else reply="응 지훈아";
  if(replyTimer)clearTimeout(replyTimer);
  replyTimer=setTimeout(()=>{
   getChat("권순영").push({date:"2014.10.16",from:"권순영",text:reply,time:timeNow()});
