@@ -342,7 +342,6 @@ function respondTo(text){
 /* 통화 종료 후 사과 메시지 시퀀스는 한 번만 시작 */
 function renderCall(){
 
-function renderCall(){
   screen.innerHTML=`<div class="call-screen">
     <div class="call-name">${esc(callPerson)}</div>
     <div class="call-number">${contacts.find(c=>c[0]===callPerson)?.[1]||""}</div>
