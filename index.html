@@ -329,11 +329,9 @@ function respondTo(text){
  else if(/왜 그랬|왜 그래/.test(t))reply="내가 힘들다고 너한테 너무 못되게 굴었어. 미안해.";
  else if(/사랑해|좋아해/.test(t))reply="나도 많이 사랑해. 진심이야.";
  else if(/기다|언제 와|어디야/.test(t))reply="지금 갈게. 조금만 기다려 줘.";
- else if(/응|어|그래|웅/.test(t))reply="고마워… 내 얘기 들어줘서.";
+ else if(/응|어|그래/.test(t))reply="고마워… 내 얘기 들어줘서.";
  else if(/보고 싶/.test(t))reply="나도 보고 싶어. 지금 네 옆에 가고 싶다.";
- else if(/권순영/.test(t))reply="응 지훈아.";
- else if(/꺼져/.test(t))reply="네가 그러고 싶으면 그럴게 지훈아.";
- else reply="응 미안해 다 말해 듣고 있어.";
+ else reply="읽었어. 네가 그렇게 느낀 줄 몰랐어. 조금만 더 얘기해 줄래?";
  if(replyTimer)clearTimeout(replyTimer);
  replyTimer=setTimeout(()=>{
   getChat("권순영").push({date:"2014.10.16",from:"권순영",text:reply,time:timeNow()});
