@@ -383,12 +383,7 @@ function endCall(){
   }
 }
 
-function endCall(){
- if(timer)clearInterval(timer);timer=null;
- logs.unshift([callPerson,callMode==="incoming"?"부재중 전화":"통화 종료","10.16 "+timeNow(),callMode==="incoming"]);persist();
- if(callPerson==="권순영"){setPage("chat","권순영");startApologyAfterCall()}
- else{phoneTab="통화기록";setPage("phone","전화")}
-}
+
 function startApologyAfterCall(){
  if(callSequenceStarted)return;
  callSequenceStarted=true;
