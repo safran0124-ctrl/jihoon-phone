@@ -341,10 +341,49 @@ function respondTo(text){
 
 /* 통화 종료 후 사과 메시지 시퀀스는 한 번만 시작 */
 function renderCall(){
- screen.innerHTML=`<div class="call-screen"><div class="call-name">${esc(callPerson)}</div><div class="call-number">${contacts.find(c=>c[0]===callPerson)?.[1]||""}</div><div class="call-state">${callMode==="incoming"?"수신 전화":"통화 중"} ${String(Math.floor(seconds/60)).padStart(2,"0")}:${String(seconds%60).padStart(2,"0")}</div><div class="call-spacer"></div><div class="call-controls">${[["▤","녹음"],["▦","다이얼"],["◖))","스피커"],["⊘","송화음 차단"],["ᛒ","Bluetooth"],["◉","보류"]].map(x=>`<button><span class="circle">${x[0]}</span>${x[1]}</button>`).join("")}</div><button class="hang" onclick="endCall()">☎</button></div>`;
- if(timer)clearInterval(timer);
- timer=setInterval(()=>{seconds++;const s=$(".call-state");if(s)s.textContent=(callMode==="incoming"?"수신 전화":"통화 중")+" "+String(Math.floor(seconds/60)).padStart(2,"0")+":"+String(seconds%60).padStart(2,"0")},1000);
+
+function renderCall(){
+  screen.innerHTML=`<div class="call-screen">
+    <div class="call-name">${esc(callPerson)}</div>
+    <div class="call-number">${contacts.find(c=>c[0]===callPerson)?.[1]||""}</div>
+    <div class="call-state">${callMode==="incoming"?"수신 전화":"통화 중"} ${String(Math.floor(seconds/60)).padStart(2,"0")}:${String(seconds%60).padStart(2,"0")}</div>
+    <div class="call-spacer"></div>
+    ${callMode==="incoming"?`<button onclick="answerCall()" style="background:#269b55;border:0;border-radius:28px;padding:15px 30px;color:white;font-size:18px">☎ 받기</button>`:""}
+    <button class="hang" onclick="endCall()">☎</button>
+  </div>`;
+  if(timer)clearInterval(timer);
+  timer=setInterval(()=>{
+    seconds++;
+    const s=$(".call-state");
+    if(s)s.textContent=(callMode==="incoming"?"수신 전화":"통화 중")+" "+String(Math.floor(seconds/60)).padStart(2,"0")+":"+String(seconds%60).padStart(2,"0");
+  },1000);
 }
+function answerCall(){
+  if(callPerson!=="권순영")return;
+  callMode="connected";
+  renderCall();
+  window.soonyoungAudio=new Audio("soonyoung.mp3");
+  window.soonyoungAudio.play().catch(()=>{});
+}
+function endCall(){
+  if(timer)clearInterval(timer);
+  timer=null;
+  if(window.soonyoungAudio){
+    window.soonyoungAudio.pause();
+    window.soonyoungAudio.currentTime=0;
+    window.soonyoungAudio=null;
+  }
+  logs.unshift([callPerson,callMode==="incoming"?"부재중 전화":"통화 종료","10.16 "+timeNow(),callMode==="incoming"]);
+  persist();
+  if(callPerson==="권순영"){
+    setPage("chat","권순영");
+    startApologyAfterCall();
+  }else{
+    phoneTab="통화기록";
+    setPage("phone","전화");
+  }
+}
+
 function endCall(){
  if(timer)clearInterval(timer);timer=null;
  logs.unshift([callPerson,callMode==="incoming"?"부재중 전화":"통화 종료","10.16 "+timeNow(),callMode==="incoming"]);persist();
